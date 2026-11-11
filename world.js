@@ -1,13 +1,24 @@
 
 document.addEventListener("DOMContentLoaded", function() {
-    const button = document.getElementById("lookup");
+    const lookup = document.getElementById("lookup");
+    const lookupCities = document.getElementById("lookup-cities");
     const countryInput = document.getElementById("country");
     const result = document.getElementById("result");
 
-    button.addEventListener("click", function() {
+    lookup.addEventListener("click", function() {
         const country = countryInput.value;
 
         fetch("world.php?country=" + encodeURIComponent(country))
+            .then(response => response.text())
+            .then(data => {
+                result.innerHTML = data;
+            });
+    });
+
+    lookupCities.addEventListener("click", function() {
+        const country = countryInput.value;
+
+        fetch("world.php?country=" + encodeURIComponent(country) + "&lookup=cities")
             .then(response => response.text())
             .then(data => {
                 result.innerHTML = data;
